@@ -57,13 +57,7 @@ jobs:
         curl -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.22.6/2022-03-09/bin/linux/amd64/kubectl
         chmod u+x ./kustomize
         chmod +x ./kubectl
-        mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
         ./kustomize edit set image example-eks=$IMAGE_NAME
-        ./kustomize build . | kubectl apply -f -
+        ./kustomize build . | ./kubectl apply -f -
         # Verify deployment
-        kubectl rollout status deployment/aws-example-octodex
-        # List Public IP of cluster
-        kubectl get services -o wide
-        kubectl get ingress
-        kubectl apply -f nginx.yaml
-        kubectl set image deployment/nginx nginx=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        ./kubectl rollout status deployment/nginx
