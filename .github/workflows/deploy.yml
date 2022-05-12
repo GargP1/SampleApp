@@ -60,5 +60,5 @@ jobs:
         ./kustomize edit set image example-eks=$IMAGE_NAME
         ./kustomize build . | ./kubectl apply -f -
         # Deploy Ingress and Verify deployment
-        ./kubectl apply-f ingress.yaml
+        ./kubectl apply -f ingress.yaml
         ./kubectl rollout status deployment/nginx
