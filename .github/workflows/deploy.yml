@@ -57,6 +57,9 @@ jobs:
         curl -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.22.6/2022-03-09/bin/linux/amd64/kubectl
         chmod u+x ./kustomize
         chmod +x ./kubectl
+        # Install Metrics server for HPA
+        ./kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+         # Deploy sample nginx app
         ./kustomize edit set image example-eks=$IMAGE_NAME
         ./kustomize build . | ./kubectl apply -f -
         # Deploy Ingress and Verify deployment
